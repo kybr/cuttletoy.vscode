@@ -41,7 +41,7 @@ export function activate(context: vscode.ExtensionContext) {
 
 		const message =
 			Buffer.concat([
-				Buffer.from('/frag\0\0\0,s\0\0'),
+				Buffer.from('/f\0\0,s\0\0'),
 				Buffer.from(text),
 				Buffer.alloc(4 - (text.length % 4)),
 			]);
