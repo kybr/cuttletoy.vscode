@@ -45,7 +45,8 @@ export function activate(context: vscode.ExtensionContext) {
 				Buffer.from(text),
 				Buffer.alloc(4 - (text.length % 4)),
 			]);
-		socket.send(message, 7770);
+
+		socket.send(message, 7770, '224.0.7.23');
 	});
 
 	context.subscriptions.push(disposable);
