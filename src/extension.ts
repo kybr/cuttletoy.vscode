@@ -14,7 +14,7 @@ export function activate(context: vscode.ExtensionContext) {
 	});
 
 	socket.on('listening', () => {
-		socket.setBroadcast(true);
+		socket.addMembership('224.0.7.24');
 		socket.setSendBufferSize(65536);
 		const address = socket.address();
 		show(`cuttletoy: listening ${address.address}:${address.port}`);
