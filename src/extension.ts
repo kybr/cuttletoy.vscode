@@ -26,7 +26,7 @@ export function activate(context: vscode.ExtensionContext) {
 
 	socket.bind(7771);
 
-	const disposable = vscode.commands.registerCommand('cuttletoy.fragment', () => {
+	const fragment = vscode.commands.registerCommand('cuttletoy.fragment', () => {
 		const editor = vscode.window.activeTextEditor;
 		if (!editor) {
 			show('cuttletoy: no active editor');
@@ -49,7 +49,26 @@ export function activate(context: vscode.ExtensionContext) {
 		socket.send(message, 7770, '224.0.7.23');
 	});
 
-	context.subscriptions.push(disposable);
+	context.subscriptions.push(fragment);
+
+	const sync = vscode.commands.registerCommand('cuttletoy.sync', () => {
+		const message =
+			Buffer.concat([
+				Buffer.from('/time\0\0\0,d\0\0'),
+				Buffer.alloc(8)
+			]);
+
+		socket.send(message, 7770, '224.0.7.23');
+	});
+	context.subscriptions.push(sync);
+
+	context.subscriptions.push(vscode.commands.registerCommand('cuttletoy.quit', () => {
+		socket.send(
+			Buffer.from('/quit\0\0\0,\0\0\0'),
+			7770,
+			'224.0.7.23');
+	}));
+
 }
 
 export function deactivate() {

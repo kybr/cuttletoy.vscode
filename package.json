@@ -16,6 +16,14 @@
       {
         "command": "cuttletoy.fragment",
         "title": "Send Fragment"
+      },
+      {
+        "command": "cuttletoy.sync",
+        "title": "Reset Time"
+      },
+      {
+        "command": "cuttletoy.quit",
+        "title": "Quit"
       }
     ],
     "keybindings": [
@@ -23,6 +31,16 @@
           "command": "cuttletoy.fragment",
           "key": "ctrl+alt+l",
           "mac": "shift+cmd+l"
+      },
+      {
+          "command": "cuttletoy.sync",
+          "key": "ctrl+alt+t",
+          "mac": "shift+cmd+t"
+      },
+      {
+          "command": "cuttletoy.quit",
+          "key": "ctrl+alt+k",
+          "mac": "shift+cmd+k"
       }
     ]
   },
