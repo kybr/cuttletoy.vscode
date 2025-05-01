@@ -19,8 +19,16 @@ export function activate(context: vscode.ExtensionContext) {
 		const address = socket.address();
 		show(`cuttletoy: listening ${address.address}:${address.port}`);
 	});
-
+	let last_error = '';
 	socket.on('message', (buffer, info) => {
+		if (buffer.subarray(0, 4).equals(Buffer.from('/err'))) {
+			if (last_error === buffer.subarray(12).toString()) {
+				return;
+			}
+			show(buffer.subarray(12).toString());
+			last_error = buffer.subarray(12).toString();
+			return;
+		}
 		show(`socket message: ${buffer} from ${info.address}:${info.port}`);
 	});
 
@@ -46,6 +54,7 @@ export function activate(context: vscode.ExtensionContext) {
 				Buffer.alloc(4 - (text.length % 4)),
 			]);
 
+		last_error = '';
 		socket.send(message, 7770, '224.0.7.23');
 	});
 
